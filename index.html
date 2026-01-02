@@ -1,20 +1,73 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Resume Maker</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Playfair+Display&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:Arial;background:#f4f6f8;padding:15px}
+body{
+  background:#eef2f5;
+  font-family:Poppins, sans-serif;
+  padding:15px;
+}
 h1,h2{text-align:center}
-.template-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
-.box{background:#fff;padding:15px;border-radius:8px;box-shadow:0 3px 8px #ccc}
-button{background:#007bff;color:#fff;border:none;padding:8px 12px;border-radius:5px;cursor:pointer}
-input,select,textarea{width:100%;padding:7px;margin:6px 0}
-#form,#preview{display:none;background:#fff;padding:15px;margin-top:20px;border-radius:8px}
-img{max-width:100px;border-radius:50%}
-hr{margin:10px 0}
+
+.template-box{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.template{
+  background:#fff;
+  padding:15px;
+  width:200px;
+  text-align:center;
+  border-radius:8px;
+  box-shadow:0 3px 8px #aaa;
+}
+
+button{
+  background:#007bff;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.form-box,.preview{
+  background:#fff;
+  max-width:850px;
+  margin:20px auto;
+  padding:15px;
+  border-radius:8px;
+  box-shadow:0 3px 10px #aaa;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:7px;
+  margin:6px 0;
+}
+
+.preview{display:none}
+
+/* ===== TEMPLATE DESIGNS ===== */
+.template1{font-family:Roboto;background:#fdfefe}
+.template1 .header{background:#007bff;color:#fff;padding:10px}
+
+.template2{font-family:Playfair Display;background:#fff7ed}
+.template2 .header{background:#ff9800;color:#fff;padding:10px}
+
+.template3{font-family:Poppins;background:#f3f4f6}
+.template3 .header{background:#4caf50;color:#fff;padding:10px}
+
+img{width:110px;border-radius:50%}
 .icon{font-weight:bold}
-.small{font-size:13px;color:#555}
 </style>
 </head>
 
@@ -23,46 +76,47 @@ hr{margin:10px 0}
 <h1>Select Resume Template</h1>
 
 <div class="template-box">
-  <div class="box"><b>Classic</b><br><button onclick="openForm('Classic')">Use Template</button></div>
-  <div class="box"><b>Modern</b><br><button onclick="openForm('Modern')">Use Template</button></div>
-  <div class="box"><b>Creative</b><br><button onclick="openForm('Creative')">Use Template</button></div>
-  <div class="box"><b>Minimal</b><br><button onclick="openForm('Minimal')">Use Template</button></div>
-  <div class="box"><b>Professional</b><br><button onclick="openForm('Professional')">Use Template</button></div>
+  <div class="template"><b>Classic</b><br><button onclick="selectTemplate('template1')">Use Template</button></div>
+  <div class="template"><b>Creative</b><br><button onclick="selectTemplate('template2')">Use Template</button></div>
+  <div class="template"><b>Professional</b><br><button onclick="selectTemplate('template3')">Use Template</button></div>
 </div>
 
 <!-- FORM -->
-<div id="form">
-<h2>Create Resume (<span id="tname"></span>)</h2>
+<div class="form-box" id="form" style="display:none">
+<h2>Create Resume</h2>
 
-<input placeholder="Full Name">
-<input type="email" placeholder="Email *" required>
-<input type="tel" placeholder="Phone Number *" required>
+<input id="name" placeholder="Full Name">
+<input id="email" type="email" placeholder="Email *" required>
+<input id="phone" type="tel" placeholder="Phone *" required>
 
-<input type="date">
-<select>
-  <option>Marital Status</option>
+<select id="gender">
+  <option value="">Gender</option>
+  <option>Male</option>
+  <option>Female</option>
+</select>
+
+<select id="marital">
+  <option value="">Marital Status</option>
   <option>Single</option>
   <option>Married</option>
 </select>
 
-<input placeholder="Nationality">
-<input placeholder="Father Name">
+<input type="date" id="dob">
+<input id="father" placeholder="Father Name">
+<input id="nation" placeholder="Nationality">
+<textarea id="address" placeholder="Address"></textarea>
 
-<textarea placeholder="Address"></textarea>
-
-<!-- OBJECTIVE -->
 <b>Career Objective</b>
-<select id="objSelect" onchange="fillObjective()">
+<select onchange="fillObjective(this.value)">
   <option value="">Select common objective</option>
-  <option>To obtain a responsible position and grow professionally.</option>
-  <option>Looking for a challenging role to enhance my skills.</option>
-  <option>To work in a growth-oriented organization.</option>
+  <option>To work in a growth oriented organization.</option>
+  <option>Seeking a challenging position to enhance my skills.</option>
+  <option>To build a professional career with dedication.</option>
 </select>
 <textarea id="objective" placeholder="Or write your own objective"></textarea>
 
-<!-- SKILLS -->
 <b>Skills</b>
-<select id="skillSelect" onchange="addSkill()">
+<select onchange="addSkill(this.value)">
   <option value="">Select common skill</option>
   <option>HTML</option>
   <option>CSS</option>
@@ -70,96 +124,90 @@ hr{margin:10px 0}
   <option>MS Word</option>
   <option>Communication</option>
 </select>
-<input id="customSkill" placeholder="Add more skills (comma separated)">
+<input id="customSkill" placeholder="Add more skills (optional)">
 
-<!-- QUALIFICATION -->
 <b>Qualification</b>
-<input placeholder="Course / Degree">
-<input placeholder="Board / University">
-<input placeholder="Year of Passing">
-<input placeholder="Percentage">
+<input id="course" placeholder="Course / Degree">
+<input id="board" placeholder="Board / University">
+<input id="year" placeholder="Year of Passing">
+<input id="percent" placeholder="Percentage">
 
-<textarea placeholder="Experience (if any)"></textarea>
+<textarea id="experience" placeholder="Experience (optional)"></textarea>
 
 <b>Upload Photo</b>
 <input type="file" accept="image/*" onchange="loadPhoto(event)">
 
-<button onclick="previewResume()">Preview Resume</button>
+<button type="button" onclick="previewResume()">Preview Resume</button>
 </div>
 
 <!-- PREVIEW -->
-<div id="preview">
-<h2>Resume Preview</h2>
+<div class="preview" id="preview">
+  <div class="header">
+    <h2 id="pname"></h2>
+  </div>
 
-<img id="pimg"><br><br>
-<b id="pname"></b><br>
-<span>📧</span> <span id="pemail"></span><br>
-<span>📞</span> <span id="pphone"></span><br>
-<span>📍</span> <span id="paddress"></span>
+  <img id="pimg"><br><br>
 
-<hr>
+  📧 <span id="pemail"></span><br>
+  📞 <span id="pphone"></span><br>
+  📍 <span id="paddress"></span>
 
-<b>Objective</b>
-<p id="pobj"></p>
+  <hr>
+  <b>Objective</b>
+  <p id="pobjective"></p>
 
-<b>Skills</b>
-<p id="pskills"></p>
+  <b>Skills</b>
+  <p id="pskills"></p>
 
-<b>Qualification</b>
-<p id="pqual"></p>
+  <b>Qualification</b>
+  <p id="pqual"></p>
 
-<b>Experience</b>
-<p id="pexp"></p>
+  <b>Experience</b>
+  <p id="pexp"></p>
 
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="shareResume()">Share</button>
+  <button onclick="downloadPDF()">Download PDF</button>
+  <button onclick="shareResume()">Share</button>
 </div>
 
 <script>
-let selectedTemplate="";
-let skillList=[];
+let templateClass="template1";
+let skills=[];
 
-function openForm(name){
-  selectedTemplate=name;
+function selectTemplate(t){
+  templateClass=t;
   document.getElementById("form").style.display="block";
-  document.getElementById("tname").innerText=name;
   window.scrollTo(0,document.body.scrollHeight);
 }
 
-function fillObjective(){
-  document.getElementById("objective").value=
-  document.getElementById("objSelect").value;
+function fillObjective(val){
+  document.getElementById("objective").value=val;
 }
 
-function addSkill(){
-  let s=document.getElementById("skillSelect").value;
-  if(s && !skillList.includes(s)){
-    skillList.push(s);
-  }
+function addSkill(val){
+  if(val && !skills.includes(val)) skills.push(val);
 }
 
 function loadPhoto(e){
-  document.getElementById("pimg").src=URL.createObjectURL(e.target.files[0]);
+  document.getElementById("pimg").src=URL.createObjectObjectURL
+    ? URL.createObjectObjectURL(e.target.files[0])
+    : URL.createObjectURL(e.target.files[0]);
 }
 
 function previewResume(){
-  let i=document.querySelectorAll("#form input, #form textarea");
-  document.getElementById("pname").innerText=i[0].value;
-  document.getElementById("pemail").innerText=i[1].value;
-  document.getElementById("pphone").innerText=i[2].value;
-  document.getElementById("paddress").innerText=i[7].value;
-  document.getElementById("pobj").innerText=document.getElementById("objective").value;
+  let p=document.getElementById("preview");
+  p.className="preview "+templateClass;
 
-  let custom=document.getElementById("customSkill").value;
-  document.getElementById("pskills").innerText=
-    skillList.join(", ") + (custom ? ", "+custom : "");
-
+  document.getElementById("pname").innerText=name.value;
+  document.getElementById("pemail").innerText=email.value;
+  document.getElementById("pphone").innerText=phone.value;
+  document.getElementById("paddress").innerText=address.value;
+  document.getElementById("pobjective").innerText=objective.value;
+  document.getElementById("pskills").innerText=skills.join(", ")+" "+customSkill.value;
   document.getElementById("pqual").innerText=
-    i[11].value+" | "+i[12].value+" | "+i[13].value+" | "+i[14].value;
+    course.value+" | "+board.value+" | "+year.value+" | "+percent.value;
+  document.getElementById("pexp").innerText=experience.value;
 
-  document.getElementById("pexp").innerText=i[15].value;
-
-  document.getElementById("preview").style.display="block";
+  p.style.display="block";
   window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -169,12 +217,15 @@ function downloadPDF(){
 
 function shareResume(){
   if(navigator.share){
-    navigator.share({title:"My Resume",text:"Resume created using Resume Maker"});
+    navigator.share({
+      title:"My Resume",
+      text:"Resume created using Resume Maker"
+    });
   }else{
-    alert("Share not supported");
+    alert("Share not supported on this browser");
   }
 }
 </script>
 
 </body>
-    </html>  
+  </html>
