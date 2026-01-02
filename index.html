@@ -1,231 +1,242 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Resume Maker</title>
+<title>Free Online Resume Maker – PDF Download</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Create professional resume online. Free resume maker for students and job seekers. Download PDF or Image.">
+<meta name="robots" content="index, follow">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Playfair+Display&display=swap" rel="stylesheet">
+<!-- LIBRARIES -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-body{
-  background:#eef2f5;
-  font-family:Poppins, sans-serif;
-  padding:15px;
-}
-h1,h2{text-align:center}
+body{margin:0;font-family:Georgia,serif;background:#d1d5db}
+nav{background:#020617;color:#fff;text-align:center;padding:10px}
+nav a{color:#fff;margin:0 10px;text-decoration:none;font-weight:bold}
 
-.template-box{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  flex-wrap:wrap;
-}
-.template{
-  background:#fff;
-  padding:15px;
-  width:200px;
-  text-align:center;
-  border-radius:8px;
-  box-shadow:0 3px 8px #aaa;
-}
+.app{display:flex;flex-wrap:wrap}
+.form{width:100%;max-width:360px;background:#fff;padding:14px}
+.preview{flex:1;padding:40px 0}
 
-button{
-  background:#007bff;
-  color:#fff;
-  border:none;
-  padding:8px 14px;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.form-box,.preview{
-  background:#fff;
-  max-width:850px;
-  margin:20px auto;
-  padding:15px;
-  border-radius:8px;
-  box-shadow:0 3px 10px #aaa;
+.resume{
+ width:794px;min-height:1123px;
+ margin:auto;background:#fff;
+ padding:40px;
+ box-shadow:0 0 25px rgba(0,0,0,.3)
 }
 
 input,select,textarea{
-  width:100%;
-  padding:7px;
-  margin:6px 0;
+ width:100%;padding:8px;margin-bottom:6px;
+ border:1px solid #999;font-family:inherit
+}
+button{padding:8px 12px;margin:6px 0;cursor:pointer}
+
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:14px}
+.photo{
+ width:120px;height:150px;object-fit:cover;
+ border:1px solid #000;margin:auto;display:block
+}
+.hide{display:none}
+
+.section-title{
+ margin-top:20px;padding:6px 10px;
+ background:#e5e7eb;border-left:5px solid #000;
+ font-weight:bold;text-transform:uppercase
 }
 
-.preview{display:none}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #000;padding:6px;font-size:14px}
 
-/* ===== TEMPLATE DESIGNS ===== */
-.template1{font-family:Roboto;background:#fdfefe}
-.template1 .header{background:#007bff;color:#fff;padding:10px}
+.page{max-width:900px;margin:30px auto;background:#fff;padding:30px}
 
-.template2{font-family:Playfair Display;background:#fff7ed}
-.template2 .header{background:#ff9800;color:#fff;padding:10px}
+.footer{text-align:center;background:#f1f5f9;padding:20px;margin-top:40px}
 
-.template3{font-family:Poppins;background:#f3f4f6}
-.template3 .header{background:#4caf50;color:#fff;padding:10px}
+.ad-box{
+ max-width:794px;height:90px;margin:15px auto;
+ border:2px dashed #94a3b8;
+ display:flex;align-items:center;justify-content:center;
+ color:#64748b
+}
 
-img{width:110px;border-radius:50%}
-.icon{font-weight:bold}
+@media print{
+ .form,nav,.ad-box,.footer,.page{display:none}
+ .resume{box-shadow:none}
+ body{background:#fff}
+}
 </style>
 </head>
 
 <body>
 
-<h1>Select Resume Template</h1>
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+<a href="#privacy">Privacy</a>
+<a href="#terms">Terms</a>
+</nav>
 
-<div class="template-box">
-  <div class="template"><b>Classic</b><br><button onclick="selectTemplate('template1')">Use Template</button></div>
-  <div class="template"><b>Creative</b><br><button onclick="selectTemplate('template2')">Use Template</button></div>
-  <div class="template"><b>Professional</b><br><button onclick="selectTemplate('template3')">Use Template</button></div>
+<!-- ================= HOME / RESUME MAKER ================= -->
+<div id="home" class="app">
+
+<div class="form">
+<h3>Personal Details</h3>
+<input placeholder="Full Name" oninput="setText('name',this.value)">
+<input placeholder="Email" oninput="setText('email',this.value)">
+<input placeholder="Phone" oninput="setText('phone',this.value)">
+<input type=ddate" oninput="setDOB(this.value)">
+<input placeholder="Address" oninput="setText('address',this.value)">
+<input placeholder="Nationality" oninput="setText('nation',this.value)">
+<input type="file" accept="image/*" onchange="loadImg(event)">
+
+<h3>Career Objective</h3>
+<textarea oninput="setText('objective',this.value)"></textarea>
+
+<h3>Skills</h3>
+<input placeholder="Add Skill" id="skillInput">
+<button onclick="addSkill()">Add Skill</button>
+
+<h3>Education</h3>
+<div id="eduForm"></div>
+<button onclick="addEdu()">+ Add Qualification</button>
+
+<h3>Download</h3>
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="downloadImage()">Download Image</button>
+<button onclick="shareResume()">Share</button>
 </div>
 
-<!-- FORM -->
-<div class="form-box" id="form" style="display:none">
-<h2>Create Resume</h2>
+<div class="preview">
+<div class="resume" id="resume">
 
-<input id="name" placeholder="Full Name">
-<input id="email" type="email" placeholder="Email *" required>
-<input id="phone" type="tel" placeholder="Phone *" required>
-
-<select id="gender">
-  <option value="">Gender</option>
-  <option>Male</option>
-  <option>Female</option>
-</select>
-
-<select id="marital">
-  <option value="">Marital Status</option>
-  <option>Single</option>
-  <option>Married</option>
-</select>
-
-<input type="date" id="dob">
-<input id="father" placeholder="Father Name">
-<input id="nation" placeholder="Nationality">
-<textarea id="address" placeholder="Address"></textarea>
-
-<b>Career Objective</b>
-<select onchange="fillObjective(this.value)">
-  <option value="">Select common objective</option>
-  <option>To work in a growth oriented organization.</option>
-  <option>Seeking a challenging position to enhance my skills.</option>
-  <option>To build a professional career with dedication.</option>
-</select>
-<textarea id="objective" placeholder="Or write your own objective"></textarea>
-
-<b>Skills</b>
-<select onchange="addSkill(this.value)">
-  <option value="">Select common skill</option>
-  <option>HTML</option>
-  <option>CSS</option>
-  <option>JavaScript</option>
-  <option>MS Word</option>
-  <option>Communication</option>
-</select>
-<input id="customSkill" placeholder="Add more skills (optional)">
-
-<b>Qualification</b>
-<input id="course" placeholder="Course / Degree">
-<input id="board" placeholder="Board / University">
-<input id="year" placeholder="Year of Passing">
-<input id="percent" placeholder="Percentage">
-
-<textarea id="experience" placeholder="Experience (optional)"></textarea>
-
-<b>Upload Photo</b>
-<input type="file" accept="image/*" onchange="loadPhoto(event)">
-
-<button type="button" onclick="previewResume()">Preview Resume</button>
+<div class="header">
+<img id="photo" class="photo hide">
+<h1 id="name">Your Name</h1>
+<p>📧 <span id="email"></span> | 📞 <span id="phone"></span> | 📅 <span id="dob"></span></p>
+<p>🏠 <span id="address"></span> | <span id="nation"></span></p>
 </div>
 
-<!-- PREVIEW -->
-<div class="preview" id="preview">
-  <div class="header">
-    <h2 id="pname"></h2>
-  </div>
+<div class="section-title">Career Objective</div>
+<p id="objective"></p>
 
-  <img id="pimg"><br><br>
+<div class="section-title">Skills</div>
+<ul id="skills"></ul>
 
-  📧 <span id="pemail"></span><br>
-  📞 <span id="pphone"></span><br>
-  📍 <span id="paddress"></span>
+<div class="section-title">Education</div>
+<table>
+<tr><th>Qualification</th><th>Board</th><th>Year</th><th>%</th></tr>
+<tbody id="eduPreview"></tbody>
+</table>
 
-  <hr>
-  <b>Objective</b>
-  <p id="pobjective"></p>
+</div>
 
-  <b>Skills</b>
-  <p id="pskills"></p>
+<div class="ad-box">Google AdSense Advertisement</div>
+</div>
+</div>
 
-  <b>Qualification</b>
-  <p id="pqual"></p>
+<!-- ================= ABOUT ================= -->
+<div id="about" class="page">
+<h2>About Us</h2>
+<p>
+This Free Online Resume Maker is designed to help students, freshers,
+and job seekers create professional resumes easily.
+</p>
+<p>
+Users can generate resumes and download them in PDF or image format
+without registration.
+</p>
+</div>
 
-  <b>Experience</b>
-  <p id="pexp"></p>
+<!-- ================= CONTACT ================= -->
+<div id="contact" class="page">
+<h2>Contact Us</h2>
+<p>
+For any questions or suggestions, contact us at:
+</p>
+<p><strong>Email:</strong> yourname@gmail.com</p>
+</div>
 
-  <button onclick="downloadPDF()">Download PDF</button>
-  <button onclick="shareResume()">Share</button>
+<!-- ================= PRIVACY ================= -->
+<div id="privacy" class="page">
+<h2>Privacy Policy</h2>
+<p>
+We do not collect or store any personal information.
+</p>
+<p>
+Google AdSense may use cookies to display ads based on user interests.
+</p>
+<p>
+By using this website, you agree to our privacy policy.
+</p>
+</div>
+
+<!-- ================= TERMS ================= -->
+<div id="terms" class="page">
+<h2>Terms & Conditions</h2>
+<p>
+This website is provided for free for educational purposes.
+</p>
+<p>
+We are not responsible for misuse of resumes generated using this tool.
+</p>
+</div>
+
+<div class="footer">
+© 2025 Free Online Resume Maker
 </div>
 
 <script>
-let templateClass="template1";
-let skills=[];
+function setText(id,v){document.getElementById(id).innerText=v||""}
+function setDOB(v){dob.innerText=v?new Date(v).toLocaleDateString('en-GB'):""}
 
-function selectTemplate(t){
-  templateClass=t;
-  document.getElementById("form").style.display="block";
-  window.scrollTo(0,document.body.scrollHeight);
+function loadImg(e){
+ let r=new FileReader();
+ r.onload=()=>{photo.src=r.result;photo.classList.remove("hide")}
+ r.readAsDataURL(e.target.files[0])
 }
 
-function fillObjective(val){
-  document.getElementById("objective").value=val;
+let skillsArr=[];
+function addSkill(){
+ let v=skillInput.value;
+ if(v){skillsArr.push(v);skills.innerHTML=skillsArr.map(s=>"<li>"+s+"</li>").join("");skillInput.value=""}
 }
 
-function addSkill(val){
-  if(val && !skills.includes(val)) skills.push(val);
+let edu=[];
+function addEdu(){
+ let i=edu.length;edu.push({});
+ let d=document.createElement("div");
+ d.innerHTML=`
+ <input placeholder="Qualification" oninput="edu[${i}].q=this.value;renderEdu()">
+ <input placeholder="Board" oninput="edu[${i}].b=this.value;renderEdu()">
+ <input placeholder="Year" oninput="edu[${i}].y=this.value;renderEdu()">
+ <input placeholder="%" oninput="edu[${i}].p=this.value;renderEdu()">
+ <hr>`;
+ eduForm.appendChild(d);
 }
-
-function loadPhoto(e){
-  document.getElementById("pimg").src=URL.createObjectObjectURL
-    ? URL.createObjectObjectURL(e.target.files[0])
-    : URL.createObjectURL(e.target.files[0]);
-}
-
-function previewResume(){
-  let p=document.getElementById("preview");
-  p.className="preview "+templateClass;
-
-  document.getElementById("pname").innerText=name.value;
-  document.getElementById("pemail").innerText=email.value;
-  document.getElementById("pphone").innerText=phone.value;
-  document.getElementById("paddress").innerText=address.value;
-  document.getElementById("pobjective").innerText=objective.value;
-  document.getElementById("pskills").innerText=skills.join(", ")+" "+customSkill.value;
-  document.getElementById("pqual").innerText=
-    course.value+" | "+board.value+" | "+year.value+" | "+percent.value;
-  document.getElementById("pexp").innerText=experience.value;
-
-  p.style.display="block";
-  window.scrollTo(0,document.body.scrollHeight);
+function renderEdu(){
+ eduPreview.innerHTML="";
+ edu.forEach(e=>{
+  if(e.q)eduPreview.innerHTML+=`<tr><td>${e.q}</td><td>${e.b||""}</td><td>${e.y||""}</td><td>${e.p||""}</td></tr>`;
+ });
 }
 
 function downloadPDF(){
-  window.print();
+ html2pdf().from(resume).set({filename:'Resume.pdf'}).save();
 }
-
-function shareResume(){
-  if(navigator.share){
-    navigator.share({
-      title:"My Resume",
-      text:"Resume created using Resume Maker"
-    });
-  }else{
-    alert("Share not supported on this browser");
-  }
+function downloadImage(){
+ html2canvas(resume).then(c=>{
+  let a=document.createElement("a");
+  a.download="Resume.png";a.href=c.toDataURL();a.click();
+ });
+}
+async function shareResume(){
+ const blob=await html2pdf().from(resume).outputPdf('blob');
+ const file=new File([blob],"Resume.pdf",{type:"application/pdf"});
+ navigator.share({files:[file],title:"My Resume"});
 }
 </script>
 
 </body>
-  </html>
+   </html>
