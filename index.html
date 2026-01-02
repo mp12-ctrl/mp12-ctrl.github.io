@@ -93,93 +93,185 @@ footer a{
  body{background:#fff}
  .resume{box-shadow:none}
 }
+<s Navbar main box */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  padding: 12px 20px;
+}
+
+/* Logo */
+.logo {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Menu list */
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+/* Menu items */
+.nav-links li {
+  margin-left: 20px;
+}
+
+/* Menu links */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  color: #f1c40f;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="app">
+ <!-- Navigation Bar Start -->
+<nav class="navbar">
+  <div class="logo">MyWebsite</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="privacy.html">privacy>paaa></l
+    <li><a href="contact.html">Contact</a></li>
+    </u
+>
+</na
+<!-- Navigation Bar End -->- Navigation Bar End -->
 
-<!-- FORM -->
-<div class="form">
 
-<h3>Personal Details</h3>
-<input placeholder="Full Name *" required oninput="setText('name',this.value)">
+<di  clas=="app"
 
-<input type="email" placeholder="Email *" required oninput="validateEmail(this)">
-<span id="emailTick" class="tick">✔ valid</span>
 
-<input type="tel" placeholder="Phone (10 digit) *" pattern="[0-9]{10}" required oninput="validatePhone(this)">
-<span id="phoneTick" class="tick">✔ valid</span>
+<!-- FORM --
 
-<label style="font-size:13px;">Date of Birth</label>
-<input type="date" required oninput="setDOB(this.value)">
+<di  clas=="form"
 
-<input placeholder="Address" oninput="setText('address',this.value)">
-<input placeholder="Pincode" oninput="setText('pin',this.value)">
-<input placeholder="Nationality" oninput="setText('nation',this.value)">
 
-<select onchange="setText('gender',this.value)">
- <option value="">Gender</option>
- <option>Male</option>
- <option>Female</option>
-</select>
+<h3Personal Detailss</h3
 
-<input type="file" accept="image/*" onchange="loadImg(event)">
+<inpu  placeholde=="Full Name *  require  oninpu=="setText('name',this.value)"
 
-<h3>Career Objective</h3>
-<select onchange="setText('objective',this.value)">
- <option value="">Select</option>
- <option>Motivated fresher seeking an opportunity to enhance skills and grow professionally.</option>
- <option>Dedicated individual aiming to contribute to organizational success while learning new skills.</option>
- <option>Responsible candidate looking for a challenging role and long-term career growth.</option>
-</select>
 
-<textarea placeholder="Write your own career objective"
- oninput="setText('objective',this.value)"></textarea>
+<inpu  typ=="email  placeholde=="Email *  require  oni
+<spa  i=="emailTick  clas=="tick"✔ validd</span
 
-<h3>Skills</h3>
-<select id="skillSelect">
- <option value="">Select Skill</option>
- <option>Computer Basics</option>
- <option>MS Word</option>
- <option>MS Excel</option>
- <option>Communication Skills</option>
- <option>Time Management</option>
- <option>Team Work</option>
- <option>Problem Solving</option>
-</select>
-<button onclick="addSkill()">Add Skill</button>
 
-<h3>Experience</h3>
-<textarea placeholder="Experience / Internship / Projects"
- oninput="setText('experience',this.value)"></textarea>
+<inpu  typ=="tel  placeholde=="Phone (10 digit) *  patter=="[0-9]{10}  require  oninpu=="validatePhone(this)"
 
-<h3>Education</h3>
-<div id="eduForm"></div>
-<button onclick="addEdu()">+ Add Qualification</button>
+<spa  i=="phoneTick  clas=="tick"✔ validd</span
 
-<h3>Download / Share</h3>
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="downloadImage()">Download Image</button>
-<button onclick="shareResume()">Share</button>
 
-</div>
+<labe  styl=="font-size:13px;"Date of Birthh</label
 
-<!-- PREVIEW -->
-<div class="preview">
+<inpu  typ=="date  require  oninpu=="setDOB(this.value)"
 
-<div class="resume" id="resume">
 
-<div class="header">
- <img id="photo" class="photo hide">
- <h1 id="name">Your Name</h1>
+<inpu  placeholde=="Address  oninpu=="setText('address',this.value)"
 
- <div class="contact-line">
-  📞 <span id="phone"></span> |
-  📧 <span id="email"></span> |
-  📅 <span id="dob"></span>
- </div>
+<inpu  placeholde=="Pincode  oninpu=="setText('pin',this.value)"
+
+<inpu  placeholde=="Nationality  oninpu=="setText('nation',this.value)"
+
+
+<selec  onchang=="setText('gender,,thi..value)"
+  <optio  valu==""Genderr</option
+  <optionMalee</option
+  <optionFemalee</option
+
+</select
+
+
+<inpu  typ=="file  accep=="image/*  onchang=="loadImg(event)"
+
+
+<h3Career Objectivee</h3
+
+<selec  onchang=="setText('objective,,thi..value)"
+  <optio  valu==""Selectt</option
+  <optionMotivated fresher seeking an opportunity to enhance skills and grow professionally..</option
+  <optionDedicated individual aiming to contribute to organizational success while learning new skills..</option
+  <optionResponsible candidate looking for a challenging role and long-term career growth..</option
+
+</select
+
+
+<textare  placeholde=="Write your own career objective
+  oninpu=="setText('objective',this.value)"></textarea
+
+
+<h3Skillss</h3
+
+<selec  i=="skillSelect"
+  <optio  valu==""Select Skilll</option
+  <optionComputer Basicss</option
+  <optionMS Wordd</option
+  <optionMS Excell</option
+  <optionCommunication Skillss</option
+  <optionTime Managementt</option
+  <optionTeam Workk</option
+  <optionProblem Solvingg</option
+
+</select
+
+<butto  onclic=="addSkill()"Add Skilll</button
+
+
+<h3Experiencee</h3
+
+<textare  placeholde=="Experience / Internship / Projects
+  oninpu=="setText('experience',this.value)"></textarea
+
+
+<h3Educationn</h3
+
+<di  i=="eduForm"></div
+
+<butto  onclic=="addEdu()"+ Add Qualificationn</button
+
+
+<h3Download / Sharee</h3
+
+<butto  onclic=="downloadPDF()"Download PDFF</button
+
+<butto  onclic=="downloadImage()"Download Imagee</button
+
+<butto  onclic=="shareResume()"Sharee</button
+
+
+</div
+
+
+<!-- PREVIEW --
+
+<di  clas=="preview"
+
+
+<di  clas=="resume  i=="resume"
+
+
+<di  clas=="header"
+  <im  i=="photo  clas=="photo hide"
+  <h  i=="name"Your Namee</h1
+
+  <di  clas=="contact-line"
+  📞  <spa  i=="phone"></span |
+  📧  <spa  i=="email"></span |
+  📅  <spa  i=="dob"></span
+  </div
 
  <div class="contact-line">
   🏠 <span id="address"></span> -
