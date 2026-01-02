@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 
 <title>Free Online Resume Maker – PDF Download</title>
-<meta name="keywords" content="free resume maker, online resume maker, resume maker for freshers, ATS resume maker, simple resume format">
- <meta name="google-site-verification" content="tLbikhB7l1rjLqsGam_HH1CfJwEPEugPmU5Ui2Ol8rM" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
 content="Free online resume maker for students and freshers. Create professional resume and download in PDF or image format.">
@@ -17,161 +16,83 @@ content="Free online resume maker for students and freshers. Create professional
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-body{margin:0;background:#f2f6ff;font-family:Georgia,serif}
+body{margin:0;background:#d1d5db;font-family:Georgia,serif}
 .app{display:flex;flex-wrap:wrap}
 
 /* FORM */
- .form{
-   width: 100%;
-   max-width: 1200px;
-   margin: auto;
-   background: #fff;
-   padding: 20px;
-   box-sizing: border-box;
-h3{border-bottom: 2px solid #000;margin:12px 0}
-input, select,textarea{
-width: 100%; padding: 8px;margin-bottom: 6px;
-border: 1px solid #999; font-family: inherit
-input: valid{border-color:green}
-button{padding: 8px 12px; margin:6px 0; cursor:pointer}
-.tick{color:green; font-size: 13px; display:none}
-/*PREVIEW */
-..preview{fle::;;ew{fle::40p  0
-..:40p  
-  .res::794 ;;dt::794p;::1123e;
-  :1123::
-  ;;rgi::aut;:#fff;
-  n:#fff::40p;
-  n::40p;
- ::    had ::    ,,, ,,  
+.form{
+ width:100%;
+ max-width:360px;
+ background:#fff;
+ padding:14px
+}
+h3{border-bottom:2px solid #000;margin:12px 0}
+input,select,textarea{
+ width:100%;padding:8px;margin-bottom:6px;
+ border:1px solid #999;font-family:inherit
+}
+input:valid{border-color:green}
+button{padding:8px 12px;margin:6px 0;cursor:pointer}
+.tick{color:green;font-size:13px;display:none}
 
+/* PREVIEW */
+.preview{flex:1;padding:40px 0}
+.resume{
+ width:794px;min-height:1123px;
+ margin:auto;background:#fff;
+ padding:40px;
+ box-shadow:0 0 25px rgba(0,0,0,.3)
+}
 
+/* HEADER */
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:14px}
+.photo{
+ width:120px;height:150px;object-fit:cover;
+ border:1px solid #000;display:block;
+ margin:0 auto 10px auto
+}
+.hide{display:none}
+.header h1{margin:0;font-size:32px}
+.contact-line{font-size:15px;margin-top:6px;line-height:1.6}
 
-,,,,.3
+/* CONTENT */
+.main{margin-top:25px}
+.section-title{
+ margin-top:20px;padding:6px 10px;
+ background:#e5e7eb;border-left:5px solid #000;
+ font-weight:bold;text-transform:uppercase
+}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #000;padding:6px;font-size:14px}
 
+/* AD PLACEHOLDER */
+.ad-box{
+ max-width:794px;height:90px;margin:20px auto;
+ border:2px dashed #94a3b8;
+ display:flex;align-items:center;justify-content:center;
+ background:#f8fafc;color:#64748b
+}
 
+/* FOOTER */
+footer{
+ text-align:center;
+ padding:15px;
+ background:#f1f5f9;
+ font-size:14px
+}
+footer a{
+ text-decoration:none;
+ margin:0 6px;
+ color:#000
+}
 
-
-/*
-.3
-
-
-
- *
-..EADER ::..hea;;r::ext-a;;g:::en  ;;bo #000;;tto #000;;oli::000;
-..d:144
- 
-..o:::4
-  ;;::::1:: ;;:;;:1::150;;:::::1;
-  :::1;:;
-   :e:; #000;;rde #0:0;;ol;
-  ::;;d:;   ::  o:0   ma
-1
-..  aut
-
-
-.. ::ut
-
-
-..h::e{  
-..a::no::;;.heade::::{mar
-..::322nt
-..z:322px
-..c::tac;;::n::;;n;::15;;;::;:;;5;;::66:
-
-
-:;:1.66
-
-
-/* 
-.
-
-/*  *
-..NT *::.mai
-.:255i
-
-..55px
-
-  ecti
-
-  i::e
- ;;:::20;::::  p::;
-  100p;
-  b:##e5e7e;##e5e7e;;bo::er  ef:5 #000;
-  #000;
-  fo::-we;;h::bol;;text-::ansfor::
-
-
-
-rcas
-
-
-
-ta::e{w;th::100;;border::ollaps::
-
-l,,pse
-
-t,,::{b  de:1 #000;;i #000::pa;;in::6p;;::::nt
-
-:144px
-
-
-/* AD PLACEH
-.DER *
-
-  d-box
-  ::x-wi;;::794:;;he;;h::90:;;ma  i:2;
-   aut;:  b  de:22 #944a3b;
- 44a3b;
-::dis;;a::fle;;al::n-ite;::cente;;justif::conte;
-  ente;
-  b:#f8fafc;##f8f:#647488
-#
-
-7488
-
-
-
-
-/* F
-OTER *
-  ooter
-  t::t-ali;
-  te;
-  ::ddi;
- 55p;
-  bac:#f1f5f9;
- 55f;
-  fo::-si
-:
-
-4p
-
-
-  o
-    a
-  text-dec::::n;
- 
-  mar:: 0 6;
- 
-  co:#000
-0
-
-
-
-/*  PRIN 
-/
-
-@page{s:::;4;;mar:::155
-
-
-
-@me  print
- ..for,..ad-bo,,footer{displa::none
-  body{backgroun:#ffff
- ..resume{box-shado::none
-
-
+/* PRINT */
+@page{size:A4;margin:15mm}
+@media print{
+ .form,.ad-box,footer{display:none}
+ body{background:#fff}
+ .resume{box-shadow:none}
+}
 </style>
 </head>
 
@@ -393,4 +314,4 @@ async function shareResume(){
 </script>
 
 </body>
- </html>  
+ </html> 
