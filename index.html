@@ -1,1 +1,180 @@
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume Maker</title>
+<style>
+body{font-family:Arial;background:#f4f6f8;padding:15px}
+h1,h2{text-align:center}
+.template-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.box{background:#fff;padding:15px;border-radius:8px;box-shadow:0 3px 8px #ccc}
+button{background:#007bff;color:#fff;border:none;padding:8px 12px;border-radius:5px;cursor:pointer}
+input,select,textarea{width:100%;padding:7px;margin:6px 0}
+#form,#preview{display:none;background:#fff;padding:15px;margin-top:20px;border-radius:8px}
+img{max-width:100px;border-radius:50%}
+hr{margin:10px 0}
+.icon{font-weight:bold}
+.small{font-size:13px;color:#555}
+</style>
+</head>
+
+<body>
+
+<h1>Select Resume Template</h1>
+
+<div class="template-box">
+  <div class="box"><b>Classic</b><br><button onclick="openForm('Classic')">Use Template</button></div>
+  <div class="box"><b>Modern</b><br><button onclick="openForm('Modern')">Use Template</button></div>
+  <div class="box"><b>Creative</b><br><button onclick="openForm('Creative')">Use Template</button></div>
+  <div class="box"><b>Minimal</b><br><button onclick="openForm('Minimal')">Use Template</button></div>
+  <div class="box"><b>Professional</b><br><button onclick="openForm('Professional')">Use Template</button></div>
+</div>
+
+<!-- FORM -->
+<div id="form">
+<h2>Create Resume (<span id="tname"></span>)</h2>
+
+<input placeholder="Full Name">
+<input type="email" placeholder="Email *" required>
+<input type="tel" placeholder="Phone Number *" required>
+
+<input type="date">
+<select>
+  <option>Marital Status</option>
+  <option>Single</option>
+  <option>Married</option>
+</select>
+
+<input placeholder="Nationality">
+<input placeholder="Father Name">
+
+<textarea placeholder="Address"></textarea>
+
+<!-- OBJECTIVE -->
+<b>Career Objective</b>
+<select id="objSelect" onchange="fillObjective()">
+  <option value="">Select common objective</option>
+  <option>To obtain a responsible position and grow professionally.</option>
+  <option>Looking for a challenging role to enhance my skills.</option>
+  <option>To work in a growth-oriented organization.</option>
+</select>
+<textarea id="objective" placeholder="Or write your own objective"></textarea>
+
+<!-- SKILLS -->
+<b>Skills</b>
+<select id="skillSelect" onchange="addSkill()">
+  <option value="">Select common skill</option>
+  <option>HTML</option>
+  <option>CSS</option>
+  <option>JavaScript</option>
+  <option>MS Word</option>
+  <option>Communication</option>
+</select>
+<input id="customSkill" placeholder="Add more skills (comma separated)">
+
+<!-- QUALIFICATION -->
+<b>Qualification</b>
+<input placeholder="Course / Degree">
+<input placeholder="Board / University">
+<input placeholder="Year of Passing">
+<input placeholder="Percentage">
+
+<textarea placeholder="Experience (if any)"></textarea>
+
+<b>Upload Photo</b>
+<input type="file" accept="image/*" onchange="loadPhoto(event)">
+
+<button onclick="previewResume()">Preview Resume</button>
+</div>
+
+<!-- PREVIEW -->
+<div id="preview">
+<h2>Resume Preview</h2>
+
+<img id="pimg"><br><br>
+<b id="pname"></b><br>
+<span>📧</span> <span id="pemail"></span><br>
+<span>📞</span> <span id="pphone"></span><br>
+<span>📍</span> <span id="paddress"></span>
+
+<hr>
+
+<b>Objective</b>
+<p id="pobj"></p>
+
+<b>Skills</b>
+<p id="pskills"></p>
+
+<b>Qualification</b>
+<p id="pqual"></p>
+
+<b>Experience</b>
+<p id="pexp"></p>
+
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="shareResume()">Share</button>
+</div>
+
+<script>
+let selectedTemplate="";
+let skillList=[];
+
+function openForm(name){
+  selectedTemplate=name;
+  document.getElementById("form").style.display="block";
+  document.getElementById("tname").innerText=name;
+  window.scrollTo(0,document.body.scrollHeight);
+}
+
+function fillObjective(){
+  document.getElementById("objective").value=
+  document.getElementById("objSelect").value;
+}
+
+function addSkill(){
+  let s=document.getElementById("skillSelect").value;
+  if(s && !skillList.includes(s)){
+    skillList.push(s);
+  }
+}
+
+function loadPhoto(e){
+  document.getElementById("pimg").src=URL.createObjectURL(e.target.files[0]);
+}
+
+function previewResume(){
+  let i=document.querySelectorAll("#form input, #form textarea");
+  document.getElementById("pname").innerText=i[0].value;
+  document.getElementById("pemail").innerText=i[1].value;
+  document.getElementById("pphone").innerText=i[2].value;
+  document.getElementById("paddress").innerText=i[7].value;
+  document.getElementById("pobj").innerText=document.getElementById("objective").value;
+
+  let custom=document.getElementById("customSkill").value;
+  document.getElementById("pskills").innerText=
+    skillList.join(", ") + (custom ? ", "+custom : "");
+
+  document.getElementById("pqual").innerText=
+    i[11].value+" | "+i[12].value+" | "+i[13].value+" | "+i[14].value;
+
+  document.getElementById("pexp").innerText=i[15].value;
+
+  document.getElementById("preview").style.display="block";
+  window.scrollTo(0,document.body.scrollHeight);
+}
+
+function downloadPDF(){
+  window.print();
+}
+
+function shareResume(){
+  if(navigator.share){
+    navigator.share({title:"My Resume",text:"Resume created using Resume Maker"});
+  }else{
+    alert("Share not supported");
+  }
+}
+</script>
+
+</body>
+    </html>  
