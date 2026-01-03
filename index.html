@@ -94,16 +94,22 @@ border-bottom:2px solid #ccc;padding-bottom:15px;margin-bottom:15px
 }
 .r-header h1{margin:0;font-size:28px}
 .r-body{
-display:grid;grid-template-columns:1fr 2fr;gap:20px
+display:grid;grid-template-columns:1fr 2fr;gap:20px margin-top:20px;
 }
 .left,.right{display:flex;flex-direction:column;gap:15px}
 .box{
-border:1px solid #ddd;padding:12px;border-radius:8px;background:#fff
-}
+  border:1px solid #dcdcdc;
+  padding:14px;
+  border-radius:10px;
+  background:#ffffff;
+  }
 .box h4{
-margin:0 0 6px;border-bottom:1px solid #ccc;
-padding-bottom:4px;font-size:15px
-}
+  margin-bottom:8px;
+  border-bottom:1px solid #e0e0e0;
+  padding-bottom:6px;
+  font-size:16px;
+  font-weight:bold;
+                           }
 
 /* TEMPLATE VARIATIONS */
 .template1{background:#fdf1f5}
@@ -149,7 +155,19 @@ padding-bottom:4px;font-size:15px
   margin-top: 10px;
   color: #333;
   }
-
+@media print {
+  body {
+    background: #fff !important;
+  }
+  .resume {
+    box-shadow: none !important;
+  }
+  }
+  .left{
+  background:#eef1ff;
+  padding:15px;
+  border-radius:12px;
+  }
 </style>
 </head>
 
@@ -272,15 +290,14 @@ AdSense Ad Space
 <!-- PREVIEW PAGE -->
 <div id="previewPage">
 <div id="resume" class="resume template1">
-
 <div class="r-header">
-<img id="previewPhoto" class="photo">
-<div>
-<h1 id="pname"></h1>
-<p id="pinfo"></p>
-<p id="pnationality"></p>
+  <div style="text-align:center;width:100%">
+    <h1 id="pname"></h1>
+    <p id="pinfo"></p>
+    <p id="pnationality"></p>
+  </div>
 </div>
-</div>
+
 <section class="seo-content container card">
   <h2>How to Make Resume Online for Free</h2>
   <p>
