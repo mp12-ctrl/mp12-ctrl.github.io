@@ -1,1 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume Maker</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free Resume Maker with 10 Templates">
+<meta name="keywords" content="resume maker, cv maker, online resume india">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f4f6fb}
+
+/* NAV */
+nav{
+background:#5f6caf;color:#fff;padding:12px;
+display:flex;justify-content:space-between;flex-wrap:wrap
+}
+nav a{color:#fff;margin:0 8px;text-decoration:none}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:auto;padding:15px}
+.card{
+background:#fff;padding:20px;border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,.1)
+}
+
+/* FORM */
+input,select,textarea,button{
+width:100%;padding:9px;margin:6px 0;
+border-radius:6px;border:1px solid #ccc
+}
+button{
+background:#5f6caf;color:#fff;border:none;
+font-weight:bold;cursor:pointer
+}
+textarea{resize:none}
+.error{border:2px solid red}
+.error-msg{color:red;font-size:13px;display:none}
+
+/* Suggestions */
+.suggestions{
+display:flex;flex-wrap:wrap;gap:6px;margin:6px 0
+}
+.suggestions span{
+background:#eef1ff;padding:4px 10px;
+border-radius:14px;font-size:13px;cursor:pointer
+}
+.suggestions span:hover{background:#5f6caf;color:#fff}
+
+/* Templates thumbnails */
+.templates{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+gap:10px
+}
+.thumb{
+border:2px solid #ccc;border-radius:10px;
+padding:6px;text-align:center;cursor:pointer
+}
+.thumb.active{
+border-color:#5f6caf;
+box-shadow:0 4px 10px rgba(0,0,0,.15)
+}
+.mini{height:60px;border-radius:6px}
+.t1{background:#fdecef}
+.t2{background:#e7faf3}
+.t3{background:#eef1ff}
+.t4{background:#fff5e6}
+.t5{background:#fff;border-left:5px solid #5f6caf}
+.t6{background:#e9f2ff}
+.t7{background:#f4ecff}
+.t8{background:#f9f9f9}
+.t9{background:linear-gradient(90deg,#dde7ff 30%,#fff 30%)}
+.t10{background:#fdf6ff}
+
+/* PREVIEW */
+#previewPage{display:none;padding:20px;background:#fff;min-height:100vh}
+.resume{
+max-width:800px;margin:auto;padding:25px;border-radius:10px
+}
+.photo{
+width:120px;height:120px;border-radius:50%;object-fit:cover
+}
+
+/* COMMON STRUCTURE */
+.r-header{
+display:flex;gap:20px;align-items:center;
+border-bottom:2px solid #ccc;padding-bottom:15px;margin-bottom:15px
+}
+.r-header h1{margin:0;font-size:28px}
+.r-body{
+display:grid;grid-template-columns:1fr 2fr;gap:20px
+}
+.left,.right{display:flex;flex-direction:column;gap:15px}
+.box{
+border:1px solid #ddd;padding:12px;border-radius:8px;background:#fff
+}
+.box h4{
+margin:0 0 6px;border-bottom:1px solid #ccc;
+padding-bottom:4px;font-size:15px
+}
+
+/* TEMPLATE VARIATIONS */
+.template1{background:#fdf1f5}
+.template2 .r-header{flex-direction:column;text-align:center}
+.template2 .r-body{grid-template-columns:1fr}
+
+.template3 .left{background:#eef1ff;padding:10px;border-radius:8px}
+
+.template4 .r-body{grid-template-columns:repeat(2,1fr)}
+.template4 .box{background:#fffaf0}
+
+.template5 .box{border:none}
+.template5 .r-body{grid-template-columns:1fr}
+
+.template6 .r-header{background:#e9f2ff;padding:15px;border-radius:8px}
+
+.template7 .box h4{border-left:4px solid #7b5cd6;padding-left:6px}
+
+.template8 .r-header,.template8 .box{border:none}
+
+.template9 .r-body{grid-template-columns:260px auto}
+.template9 .left{background:#dde7ff;padding:15px;border-radius:8px}
+
+.template10{border:2px solid #e5d4f5}
+</style>
+</head>
+
+<body>
+
+<nav>
+<b>Resume Maker</b>
+<div>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+<a href="#">Privacy</a>
+<a href="#">Terms</a>
+</div>
+</nav>
+
+<div class="container card" id="formPage">
+
+<h3>Create Resume</h3>
+
+<input type="text" id="name" placeholder="Enter your name">
+
+<input id="email" placeholder="Email">
+<div id="emailError" class="error-msg">Invalid Email</div>
+
+<input id="phone" placeholder="Phone Number" maxlength="10">
+<div id="phoneError" class="error-msg">Invalid Phone</div>
+
+<input type="text" id="dob" placeholder="Date of Birth"
+onfocus="this.type='date'"
+onblur="if(!this.value)this.type='text'">
+
+<select id="gender">
+<option value="">Gender</option>
+<option>Male</option><option>Female</option>
+</select>
+
+<input id="nationality" placeholder="Nationality">
+
+<select id="marital">
+<option value="">Marital Status</option>
+<option>Single</option><option>Married</option>
+</select>
+
+<textarea id="address" placeholder="Address"></textarea>
+
+<h4>Education</h4>
+<input id="qualification" placeholder="Qualification">
+<input id="eduYear" placeholder="Passing Year">
+<input id="eduBoard" placeholder="Board / University">
+<input id="eduPercent" placeholder="Percentage / CGPA">
+
+<h4>Skills</h4>
+<input id="skillInput" placeholder="Add skill">
+<div class="suggestions">
+<span onclick="pickSkill('Communication')">Communication</span>
+<span onclick="pickSkill('Team Work')">Team Work</span>
+<span onclick="pickSkill('MS Office')">MS Office</span>
+<span onclick="pickSkill('Time Management')">Time Management</span>
+<span onclick="pickSkill('Problem Solving')">Problem Solving</span>
+</div>
+<button type="button" onclick="addSkill()">Add Skill</button>
+<ul id="skillList"></ul>
+
+<h4>Languages</h4>
+<input id="langInput" placeholder="Language">
+<select id="langLevel">
+<option value="">Proficiency</option>
+<option>Basic</option>
+<option>Intermediate</option>
+<option>Fluent</option>
+<option>Native</option>
+</select>
+<button type="button" onclick="addLanguage()">Add Language</button>
+<ul id="langList"></ul>
+
+<h4>Career Objective</h4>
+<div class="suggestions">
+<span onclick="pickObjective('To work in a challenging environment and enhance my skills.')">Challenging</span>
+<span onclick="pickObjective('To grow professionally and contribute to the organization.')">Career Growth</span>
+<span onclick="pickObjective('To secure a responsible position and learn continuously.')">Learning</span>
+</div>
+<textarea id="objectiveInput" placeholder="Career Objective"></textarea>
+
+<input type="file" id="photo">
+
+<h4>Select Template</h4>
+<div class="templates">
+<div class="thumb active" onclick="selectTemplate('template1',this)"><div class="mini t1"></div>T1</div>
+<div class="thumb" onclick="selectTemplate('template2',this)"><div class="mini t2"></div>T2</div>
+<div class="thumb" onclick="selectTemplate('template3',this)"><div class="mini t3"></div>T3</div>
+<div class="thumb" onclick="selectTemplate('template4',this)"><div class="mini t4"></div>T4</div>
+<div class="thumb" onclick="selectTemplate('template5',this)"><div class="mini t5"></div>T5</div>
+<div class="thumb" onclick="selectTemplate('template6',this)"><div class="mini t6"></div>T6</div>
+<div class="thumb" onclick="selectTemplate('template7',this)"><div class="mini t7"></div>T7</div>
+<div class="thumb" onclick="selectTemplate('template8',this)"><div class="mini t8"></div>T8</div>
+<div class="thumb" onclick="selectTemplate('template9',this)"><div class="mini t9"></div>T9</div>
+<div class="thumb" onclick="selectTemplate('template10',this)"><div class="mini t10"></div>T10</div>
+</div>
+
+<input type="hidden" id="template" value="template1">
+
+<button onclick="generate()">Preview Full Page</button>
+
+<hr>
+<div style="background:#f2f2f2;padding:10px;text-align:center">
+AdSense Ad Space
+</div>
+
+</div>
+
+<!-- PREVIEW PAGE -->
+<div id="previewPage">
+<div id="resume" class="resume template1">
+
+<div class="r-header">
+<img id="previewPhoto" class="photo">
+<div>
+<h1 id="pname"></h1>
+<p id="pinfo"></p>
+<p id="pnationality"></p>
+</div>
+</div>
+
+<div class="r-body">
+<div class="left">
+<div class="box"><h4>📍 Address</h4><p id="paddress"></p></div>
+<div class="box"><h4>🛠 Skills</h4><p id="pskill"></p></div>
+<div class="box"><h4>🌐 Languages</h4><p id="plang"></p></div>
+</div>
+
+<div class="right">
+<div class="box"><h4>🎯 Career Objective</h4><p id="pobj"></p></div>
+<div class="box"><h4>🎓 Education</h4><p id="pedu"></p></div>
+</div>
+</div>
+
+<br>
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="downloadImage()">Download Image</button>
+<button onclick="goBack()">Back</button>
+
+</div>
+</div>
+
+<script>
+let skills=[],languages=[];
+
+function pickSkill(v){skillInput.value=v}
+function pickObjective(v){objectiveInput.value=v}
+
+function addSkill(){
+if(skillInput.value){
+skills.push(skillInput.value);
+skillList.innerHTML=skills.map(s=>"<li>"+s+"</li>").join("");
+skillInput.value="";
+}
+}
+
+function addLanguage(){
+if(langInput.value && langLevel.value){
+languages.push(langInput.value+" ("+langLevel.value+")");
+langList.innerHTML=languages.map(l=>"<li>"+l+"</li>").join("");
+langInput.value="";langLevel.value="";
+}
+}
+
+function selectTemplate(t,e){
+template.value=t;
+document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
+e.classList.add("active");
+}
+
+function generate(){
+let valid=true;
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){
+email.classList.add("error");emailError.style.display="block";valid=false}
+if(!/^[6-9]\d{9}$/.test(phone.value)){
+phone.classList.add("error");phoneError.style.display="block";valid=false}
+if(!valid)return;
+
+formPage.style.display="none";
+previewPage.style.display="block";
+
+resume.className="resume "+template.value;
+document.getElementById("pname").innerText =
+document.getElementById("name").value || "Your Name";
+
+
+pinfo.innerHTML="📧 "+email.value+" | 📞 "+phone.value+" | 🎂 "+dob.value;
+pnationality.innerHTML="🌍 "+nationality.value+" | 💍 "+marital.value;
+paddress.innerText=address.value;
+pskill.innerText=skills.join(", ");
+plang.innerHTML=languages.join("<br>");
+pobj.innerText=objectiveInput.value;
+pedu.innerText=qualification.value+" | "+eduYear.value+" | "+eduBoard.value+" | "+eduPercent.value;
+
+if(photo.files[0]){
+let r=new FileReader();
+r.onload=()=>previewPhoto.src=r.result;
+r.readAsDataURL(photo.files[0]);
+}
+}
+
+function goBack(){
+previewPage.style.display="none";
+formPage.style.display="block";
+}
+
+function downloadImage(){
+html2canvas(resume).then(c=>{
+let a=document.createElement("a");
+a.href=c.toDataURL();a.download="resume.png";a.click();
+});
+}
+
+function downloadPDF(){
+html2canvas(resume).then(c=>{
+const{jsPDF}=window.jspdf;
+let pdf=new jsPDF();
+pdf.addImage(c.toDataURL(),"PNG",10,10,180,260);
+pdf.save("resume.pdf");
+});
+}
+</script>
+
+</body>
+  </html>
