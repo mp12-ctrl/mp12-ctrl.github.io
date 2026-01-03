@@ -240,6 +240,59 @@ display:grid;grid-template-columns:1fr 2fr;gap:20px margin-top:20px;
     display: block;
   }
   }
+  .gov-view #resume{
+  font-family:"Times New Roman",serif;
+  color:#000;
+}
+.gov-view .card,
+.gov-view .box,
+.gov-view .left,
+.gov-view .right{
+  background:none !important;
+  border:none !important;
+  box-shadow:none !important;
+  padding:0 !important;
+}
+.gov-view .r-body{
+  display:block !important;
+}
+.gov-view h4{
+  border-bottom:1px solid #000;
+  text-transform:uppercase;
+  font-size:14px;
+      }
+  .pro-view #resume{
+  font-family:Georgia,serif;
+  color:#222;
+}
+.pro-view .box{
+  border-left:4px solid #5f6caf;
+  background:#fafafa;
+}
+.pro-view h4{
+  color:#5f6caf;
+  border:none;
+}
+.pro-view .r-body{
+  grid-template-columns:1fr 2fr;
+  }
+  .modern-view #resume{
+  font-family:"Segoe UI",sans-serif;
+}
+.modern-view .box{
+  background:#f4f6fb;
+  border-radius:12px;
+}
+.modern-view h4{
+  color:#333;
+  border-bottom:2px solid #5f6caf;
+}
+.modern-view .r-header{
+  background:linear-gradient(90deg,#5f6caf,#8fa4ff);
+  color:#fff;
+  padding:20px;
+  border-radius:10px;
+  }
 </style>
 </head>
 
@@ -346,7 +399,13 @@ onblur="if(!this.value)this.type='text'">
 <textarea id="objectiveInput" placeholder="Career Objective"></textarea>
 
 <input type="file" id="photo">
-
+<h4>Select Layout Style</h4>
+<select id="layoutMode">
+  <option value="">Default</option>
+  <option value="gov-view">Government</option>
+  <option value="pro-view">Professional</option>
+  <option value="modern-view">Modern</option>
+</select>
 <h4>Select Template</h4>
 <div class="templates">
 <div class="thumb active" onclick="selectTemplate('template1',this)"><div class="mini t1"></div>T1</div>
@@ -461,6 +520,11 @@ formPage.style.display="none";
 previewPage.style.display="block";
 
 resume.className="resume "+template.value;
+  document.body.classList.remove("gov-view","modern-view","pro-view");
+
+if(layoutMode.value){
+  document.body.classList.add(layoutMode.value);
+   }
 document.getElementById("pname").innerText =
 document.getElementById("name").value || "Your Name";
 
@@ -489,13 +553,11 @@ r.readAsDataURL(photo.files[0]);
 }
 
 function goBack(){
-formPage.style.display="none";
-previewPage.style.display="block";
+  previewPage.style.display="none";
+  formPage.style.display="block";
 
-document.body.classList.add("gov-view");
-
-resume.className="resume "+template.value;
-}
+  document.body.classList.remove("gov-view","modern-view","pro-view");
+  }
 function downloadImage(){
   hideButtons();
   document.body.classList.add("gov-view");
