@@ -489,30 +489,42 @@ r.readAsDataURL(photo.files[0]);
 }
 
 function goBack(){
-previewPage.style.display="none";
-formPage.style.display="block";
-}
+formPage.style.display="none";
+previewPage.style.display="block";
 
+document.body.classList.add("gov-view");
+
+resume.className="resume "+template.value;
+}
 function downloadImage(){
   hideButtons();
+  document.body.classList.add("gov-view");
+
   html2canvas(resume).then(c=>{
-    let a = document.createElement("a");
-    a.href = c.toDataURL();
-    a.download = "resume.png";
+    let a=document.createElement("a");
+    a.href=c.toDataURL();
+    a.download="resume.png";
     a.click();
+
+    document.body.classList.remove("gov-view");
     showButtons();
   });
-}
+  }
 function downloadPDF(){
   hideButtons();
+  document.body.classList.add("gov-view");
+
   html2canvas(resume).then(c=>{
     const { jsPDF } = window.jspdf;
-    let pdf = new jsPDF();
-    pdf.addImage(c.toDataURL(), "PNG", 10, 10, 180, 260);
+    let pdf=new jsPDF();
+    pdf.addImage(c.toDataURL(),"PNG",10,10,180,260);
     pdf.save("resume.pdf");
+
+    document.body.classList.remove("gov-view");
     showButtons();
   });
-}
+  }
+
 
 function hideButtons(){
   document.querySelectorAll(".no-print")
