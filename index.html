@@ -133,8 +133,17 @@ padding-bottom:4px;font-size:15px
   }
 }
 
-
-
+.edu-item{
+  border:1px dashed #ccc;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
 
 </style>
 </head>
@@ -181,12 +190,18 @@ onblur="if(!this.value)this.type='text'">
 </select>
 
 <textarea id="address" placeholder="Address"></textarea>
-
 <h4>Education</h4>
-<input id="qualification" placeholder="Qualification">
-<input id="eduYear" placeholder="Passing Year">
-<input id="eduBoard" placeholder="Board / University">
-<input id="eduPercent" placeholder="Percentage / CGPA">
+
+<div id="educationList">
+  <div class="edu-item">
+    <input class="qualification" placeholder="Qualification">
+    <input class="eduYear" placeholder="Passing Year">
+    <input class="eduBoard" placeholder="Board / University">
+    <input class="eduPercent" placeholder="Percentage / CGPA">
+  </div>
+</div>
+
+<button type="button" onclick="addEducation()">➕ Add More Education</button>
 
 <h4>Skills</h4>
 <input id="skillInput" placeholder="Add skill">
@@ -285,6 +300,18 @@ AdSense Ad Space
 </div>
 
 <script>
+
+function addEducation(){
+  const div=document.createElement("div");
+  div.className="edu-item";
+  div.innerHTML=`
+    <input class="qualification" placeholder="Qualification">
+    <input class="eduYear" placeholder="Passing Year">
+    <input class="eduBoard" placeholder="Board / University">
+    <input class="eduPercent" placeholder="Percentage / CGPA">
+  `;
+  document.getElementById("educationList").appendChild(div);
+}
 let skills=[],languages=[];
 
 function pickSkill(v){skillInput.value=v}
@@ -334,7 +361,15 @@ paddress.innerText=address.value;
 pskill.innerText=skills.join(", ");
 plang.innerHTML=languages.join("<br>");
 pobj.innerText=objectiveInput.value;
-pedu.innerText=qualification.value+" | "+eduYear.value+" | "+eduBoard.value+" | "+eduPercent.value;
+let eduText="";
+document.querySelectorAll("#educationList .edu-item").forEach(e=>{
+  let q=e.querySelector(".qualification").value;
+  let y=e.querySelector(".eduYear").value;
+  let b=e.querySelector(".eduBoard").value;
+  let p=e.querySelector(".eduPercent").value;
+  if(q) eduText+=`• ${q} | ${y} | ${b} | ${p}<br>`;
+});
+pedu.innerHTML=eduText;
 
 if(photo.files[0]){
 let r=new FileReader();
@@ -349,19 +384,34 @@ formPage.style.display="block";
 }
 
 function downloadImage(){
-html2canvas(resume).then(c=>{
-let a=document.createElement("a");
-a.href=c.toDataURL();a.download="resume.png";a.click();
-});
+  hideButtons();
+  html2canvas(resume).then(c=>{
+    let a = document.createElement("a");
+    a.href = c.toDataURL();
+    a.download = "resume.png";
+    a.click();
+    showButtons();
+  });
+}
+function downloadPDF(){
+  hideButtons();
+  html2canvas(resume).then(c=>{
+    const { jsPDF } = window.jspdf;
+    let pdf = new jsPDF();
+    pdf.addImage(c.toDataURL(), "PNG", 10, 10, 180, 260);
+    pdf.save("resume.pdf");
+    showButtons();
+  });
 }
 
-function downloadPDF(){
-html2canvas(resume).then(c=>{
-const{jsPDF}=window.jspdf;
-let pdf=new jsPDF();
-pdf.addImage(c.toDataURL(),"PNG",10,10,180,260);
-pdf.save("resume.pdf");
-});
+function hideButtons(){
+  document.querySelectorAll(".no-print")
+    .forEach(b => b.style.display = "none");
+}
+
+function showButtons(){
+  document.querySelectorAll(".no-print")
+    .forEach(b => b.style.display = "block");
 }
 </script>
 
