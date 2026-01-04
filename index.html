@@ -423,8 +423,20 @@ footer a:hover {
 
 /* SCROLL KE BAAD */
 .site-logo.scrolled {
-  color: #4b5dbb; /* professional light blue */
+  color: #f2f6ff; /* professional light blue */
   }
+  .card{
+  border:2px solid transparent;
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(135deg,#5f6caf,#8fa4ff) border-box;
+}
+
+input:focus, textarea:focus, select:focus{
+  border-color:#5f6caf;
+  box-shadow:0 0 6px rgba(95,108,175,.4);
+  outline:none;
+}
 </style>
 </head>
 
@@ -602,16 +614,18 @@ AdSense Ad Space
 
 </div>
 </div>
-
 <script>
 const formPage = document.getElementById("formPage");
 const previewPage = document.getElementById("previewPage");
 const resume = document.getElementById("resume");
 const previewPhoto = document.getElementById("previewPhoto");
+
+let skills = [], languages = [];
+
 function addEducation(){
-  const div=document.createElement("div");
-  div.className="edu-item";
-  div.innerHTML=`
+  const div = document.createElement("div");
+  div.className = "edu-item";
+  div.innerHTML = `
     <input class="qualification" placeholder="Qualification">
     <input class="eduYear" placeholder="Passing Year">
     <input class="eduBoard" placeholder="Board / University">
@@ -619,153 +633,95 @@ function addEducation(){
   `;
   document.getElementById("educationList").appendChild(div);
 }
-let skills=[],languages=[];
 
-function pickSkill(v){skillInput.value=v}
-function pickObjective(v){objectiveInput.value=v}
+function pickSkill(v){ skillInput.value = v; }
+function pickObjective(v){ objectiveInput.value = v; }
 
 function addSkill(){
-if(skillInput.value){
-skills.push(skillInput.value);
-skillList.innerHTML=skills.map(s=>"<li>"+s+"</li>").join("");
-skillInput.value="";
-}
+  if(skillInput.value){
+    skills.push(skillInput.value);
+    skillList.innerHTML = skills.map(s => `<li>${s}</li>`).join("");
+    skillInput.value = "";
+  }
 }
 
 function addLanguage(){
-if(langInput.value && langLevel.value){
-languages.push(langInput.value+" ("+langLevel.value+")");
-langList.innerHTML=languages.map(l=>"<li>"+l+"</li>").join("");
-langInput.value="";langLevel.value="";
-}
+  if(langInput.value && langLevel.value){
+    languages.push(`${langInput.value} (${langLevel.value})`);
+    langList.innerHTML = languages.map(l => `<li>${l}</li>`).join("");
+    langInput.value = "";
+    langLevel.value = "";
+  }
 }
 
 function selectTemplate(t,e){
-template.value=t;
-document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
-e.classList.add("active");
+  template.value = t;
+  document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
+  e.classList.add("active");
 }
 
 function generate(){
-let valid=true;
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){
-email.classList.add("error");emailError.style.display="block";valid=false}
-if(!/^[6-9]\d{9}$/.test(phone.value)){
-phone.classList.add("error");phoneError.style.display="block";valid=false}
-if(!valid)return;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){
+    email.classList.add("error");
+    emailError.style.display="block";
+    return;
+  }
+  if(!/^[6-9]\d{9}$/.test(phone.value)){
+    phone.classList.add("error");
+    phoneError.style.display="block";
+    return;
+  }
 
-formPage.style.display="none";
-previewPage.style.display="block";
+  pname.innerText = name.value || "Your Name";
+  pinfo.innerHTML = `📧 ${email.value} | 📞 ${phone.value} | 🎂 ${dob.value}`;
+  pnationality.innerHTML = `🌍 ${nationality.value} | 💍 ${marital.value}`;
+  paddress.innerText = address.value;
+  pskill.innerText = skills.join(", ");
+  plang.innerHTML = languages.join("<br>");
+  pobj.innerText = objectiveInput.value;
 
-resume.className="resume "+template.value;
-  document.body.classList.remove("gov-view","modern-view","pro-view");
-
-if(layoutMode.value){
-  document.body.classList.add(layoutMode.value);
-   }
-document.getElementById("pname").innerText =
-document.getElementById("name").value || "Your Name";
-
-
-pinfo.innerHTML="📧 "+email.value+" | 📞 "+phone.value+" | 🎂 "+dob.value;
-pnationality.innerHTML="🌍 "+nationality.value+" | 💍 "+marital.value;
-paddress.innerText=address.value;
-pskill.innerText=skills.join(", ");
-plang.innerHTML=languages.join("<br>");
-pobj.innerText=objectiveInput.value;
-let eduText="";
-document.querySelectorAll("#educationList .edu-item").forEach(e=>{
-  let q=e.querySelector(".qualification").value;
-  let y=e.querySelector(".eduYear").value;
-  let b=e.querySelector(".eduBoard").value;
-  let p=e.querySelector(".eduPercent").value;
-  if(q) eduText+=`• ${q} | ${y} | ${b} | ${p}<br>`;
-});
-pedu.innerHTML=eduText;
-
-function generate(){
+  let eduText = "";
+  document.querySelectorAll(".edu-item").forEach(e=>{
+    let q=e.querySelector(".qualification").value;
+    let y=e.querySelector(".eduYear").value;
+    let b=e.querySelector(".eduBoard").value;
+    let p=e.querySelector(".eduPercent").value;
+    if(q) eduText += `• ${q} | ${y} | ${b} | ${p}<br>`;
+  });
+  pedu.innerHTML = eduText;
 
   if(photo.files[0]){
-    let r = new FileReader();
-    r.onload = ()=>{
-      previewPhoto.src = r.result;
-    };
+    const r = new FileReader();
+    r.onload = () => previewPhoto.src = r.result;
     r.readAsDataURL(photo.files[0]);
   }
 
-  formPage.style.display = "none";
-  previewPage.style.display = "block";
-  }
-  r.readAsDataURL(photo.files[0]);
-  }
+  resume.className = "resume " + template.value;
+  document.body.classList.remove("gov-view","pro-view","modern-view");
+  if(layoutMode.value) document.body.classList.add(layoutMode.value);
+
+  formPage.style.display="none";
+  previewPage.style.display="block";
+}
 
 function goBack(){
   previewPage.style.display="none";
   formPage.style.display="block";
-
-  document.body.classList.remove("gov-view","modern-view","pro-view");
-  }
-function downloadImage(){
-  hideButtons();
-  document.body.classList.add("gov-view");
-
-  html2canvas(resume).then(c=>{
-    let a=document.createElement("a");
-    a.href=c.toDataURL();
-    a.download="resume.png";
-    a.click();
-
-    document.body.classList.remove("gov-view");
-    showButtons();
-  });
-  }
-function downloadPDF(){
-  hideButtons();
-  document.body.classList.add("gov-view");
-
-  html2canvas(resume).then(c=>{
-    const { jsPDF } = window.jspdf;
-    let pdf=new jsPDF();
-    pdf.addImage(c.toDataURL(),"PNG",10,10,180,260);
-    pdf.save("resume.pdf");
-
-    document.body.classList.remove("gov-view");
-    showButtons();
-  });
-  }
-
-
-function hideButtons(){
-  document.querySelectorAll(".no-print")
-    .forEach(b => b.style.display = "none");
 }
 
-function showButtons(){
-  document.querySelectorAll(".no-print")
-    .forEach(b => b.style.display = "block");
-}
-  
+window.addEventListener("scroll", ()=>{
+  const logo = document.getElementById("siteLogo");
+  if(window.scrollY > 50) logo.classList.add("scrolled");
+  else logo.classList.remove("scrolled");
+});
+</script>
+  </script>
+
 <footer>
   <p>© 2026 Resume Maker. All rights reserved.</p>
-
-  <div class="footer-links">
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms</a>
-    <a href="resume-tips.html">Resume Tips</a>
-    <a href="fresher-resume-format.html">Fresher Resume</a>
-  </div>
 </footer>
-  window.addEventListener("scroll", function () {
-    const logo = document.getElementById("siteLogo");
 
-    if (window.scrollY > 50) {
-      logo.classList.add("scrolled");
-    } else {
-      logo.classList.remove("scrolled");
-    }
-  });
-</script>
+</body>
+</html>
 </body>
   </html>
