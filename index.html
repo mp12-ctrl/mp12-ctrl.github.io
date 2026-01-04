@@ -409,25 +409,38 @@ footer a {
 footer a:hover {
   text-decoration: underline;
   }
+  /* ===============================
+   LOGO SCROLL COLOR CHANGE
+   =============================== */
+
+/* TOP PAR LOGO (DEFAULT) */
+.site-logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* SCROLL KE BAAD */
+.site-logo.scrolled {
+  color: #4b5dbb; /* professional light blue */
+  }
 </style>
 </head>
 
 <body>
-
-<nav>
-  <div>
-    <h1>Free Resume Maker Online</h1>
+<div class="site-logo" id="siteLogo">
+  Free Resume Maker
+</div>
     <p>Create professional resume for students and freshers. Download CV in PDF format for free.</p>
-  </div>
-  <div>
-    <a href="index.html">Home</a>
+ <nav>
+  <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
     <a href="privacy.html">Privacy</a>
     <a href="terms.html">Terms</a>
     <a href="how-to-make-resume.html">Resume Guide</a>
     <a href="resume-tips.html">Resume Tips</a>
-  </div>
 </nav>
 <div class="container card" id="formPage">
 <section class="seo-content">
@@ -732,7 +745,6 @@ function showButtons(){
     .forEach(b => b.style.display = "block");
 }
   
-</script>
 <footer>
   <p>© 2026 Resume Maker. All rights reserved.</p>
 
@@ -745,5 +757,15 @@ function showButtons(){
     <a href="fresher-resume-format.html">Fresher Resume</a>
   </div>
 </footer>
+  window.addEventListener("scroll", function () {
+    const logo = document.getElementById("siteLogo");
+
+    if (window.scrollY > 50) {
+      logo.classList.add("scrolled");
+    } else {
+      logo.classList.remove("scrolled");
+    }
+  });
+</script>
 </body>
   </html>
