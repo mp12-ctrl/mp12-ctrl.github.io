@@ -8,46 +8,50 @@
 
 <link rel="stylesheet" href="style.css">
 </head>
-<style> /* ===============================
-   PREMIUM PRIVACY PAGE
-   =============================== */
-
-.privacy-premium {
-  margin-top: 60px;
-  backdrop-filter: blur(14px);
-  background: rgba(255,255,255,0.9);
-  border-radius: 20px;
-  position: relative;
+<style>/* LIGHT PREMIUM PRIVACY BACKGROUND */
+.contact-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9ff, #f1f4ff);
 }
 
-/* ANIMATED BORDER SAME AS CONTACT */
+/* PRIVACY BOX */
+.privacy-premium {
+  margin-top: 60px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* SOFT GRADIENT BORDER */
 .privacy-premium::before {
   content: "";
   position: absolute;
-  inset: -4px;
+  inset: -3px;
   border-radius: 22px;
   background: linear-gradient(
     120deg,
-    #00c6ff,
-    #7f00ff,
-    #ff758c,
-    #00c6ff
+    #e0c3fc,
+    #8ec5fc,
+    #e0c3fc
   );
-  background-size: 300% 300%;
-  animation: borderFlow 7s linear infinite;
   z-index: -1;
 }
 
-/* TEXT READABILITY */
+/* HEADINGS */
+.privacy-premium h1 {
+  color: #333;
+}
+
 .privacy-premium h2 {
-  margin-top: 25px;
-  color: #7f00ff;
+  color: #6a5acd;
 }
 
 .privacy-premium p {
-  color: #333;
+  color: #444;
   line-height: 1.8;
-  }
+} 
 </style>
 <body class="contact-bg">
 
