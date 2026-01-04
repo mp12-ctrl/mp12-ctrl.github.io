@@ -447,43 +447,56 @@ input:focus, textarea:focus, select:focus{
   color:#2563eb;
   text-shadow:0 0 8px rgba(37,99,235,0.4);
   }
-  /* NAVBAR CONTAINER */
-.navbar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  padding:12px;
-  background:#6b78b8; /* same header color */
+/* NAVBAR CONTAINER */
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px;
+  background: #eef2ff; /* light professional background */
+  border-bottom: 2px solid #dbe3ff;
 }
 
-/* NAV BUTTON STYLE */
-.navbar a{
-  text-decoration:none;
-  padding:8px 16px;
-  font-size:14px;
-  font-weight:500;
-  color:#ffffff;
-  background:rgba(255,255,255,0.15);
-  border:1px solid rgba(255,255,255,0.3);
-  border-radius:20px;
-  transition:all 0.3s ease;
+/* NAV BUTTONS */
+.navbar a {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2b3a67;
+  background: white;
+  border: 1.5px solid #c7d2fe;
+  transition: all 0.3s ease;
 }
 
 /* HOVER EFFECT */
-.navbar a:hover{
-  background:#ffffff;
-  color:#1e3a8a;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
-  transform:translateY(-2px);
+.navbar a:hover {
+  background: linear-gradient(135deg, #6a7cff, #8ea0ff);
+  color: white;
+  border-color: #6a7cff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
-/* ACTIVE PAGE (optional) */
-.navbar a.active{
-  background:#ffffff;
-  color:#1e3a8a;
-  font-weight:600;
+/* ACTIVE PAGE (OPTIONAL) */
+.navbar a.active {
+  background: #6a7cff;
+  color: white;
+  border-color: #6a7cff;
   }
+@media (max-width: 600px) {
+  .navbar {
+    gap: 6px;
+  }
+
+  .navbar a {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+    }
+
 </style>
 </head>
 
@@ -492,15 +505,15 @@ input:focus, textarea:focus, select:focus{
   Free Resume Maker
 </div>
     <p>Create professional resume for students and freshers. Download CV in PDF format for free.</p>
- <nav>
+ <nav class="navbar">
   <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="how-to-make-resume.html">Resume Guide</a>
-    <a href="resume-tips.html">Resume Tips</a>
-</nav>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+  <a href="how-to-make-resume.html">Resume Guide</a>
+  <a href="resume-tips.html">Resume Tips</a>
+ </nav>
 <div class="container card" id="formPage">
 <section class="seo-content">
 
@@ -762,19 +775,16 @@ window.addEventListener("scroll", ()=>{
   else logo.classList.remove("scrolled");
 });
 </script>
-<script>
 <footer>
   <p>© 2026 Resume Maker. All rights reserved.</p>
 
   <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="how-to-make-resume.html">Resume Guide</a>
-    <a href="resume-tips.html">Resume Tips</a>                                                  
-    
-</footer>
-</script>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+  <a href="how-to-make-resume.html">Resume Guide</a>
+  <a href="resume-tips.html">Resume Tips</a>
+    </footer>
 </body>
   </html>
